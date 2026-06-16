@@ -13,3 +13,6 @@ Soy Agustín Cárdenas, estudiante de cuarto año de Ingeniería en Informática
 3. **Keychron:** Tomado como referencia por la excelente experiencia de usuario (UX) al permitir filtrar teclados por tipo de switch, formato y conectividad.
 4. **Crucial:** Referencia clave para la sección de "Detalle de producto", especialmente en cómo muestran las especificaciones técnicas y compatibilidad de memorias RAM y almacenamiento.
 5. **Mercado Libre:** Elegido por la funcionalidad y usabilidad de sus formularios de registro y login, siendo un estándar en la región para transacciones digitales.
+
+## Tablero de Trabajo Ágil
+[Enlace a mi tablero de Trello](https://trello.com/invite/b/6a30efa9231654ab70063d22/ATTIe089539aa8a7fb1281fe3bfb15e24428960C5728/my-trello-board)
