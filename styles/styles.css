@@ -374,3 +374,113 @@ body {
     right: 1rem;
   }
 }
+/* =========================================
+   VISTAS: AUTH (REGISTRO Y LOGIN)
+   ========================================= */
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Calcula el alto de la pantalla restando el header aprox */
+  min-height: calc(100vh - 80px);
+  padding: 2rem;
+}
+
+.auth-card {
+  background-color: #111;
+  border: 1px solid #333;
+  padding: 2.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.form-input {
+  padding: 0.8rem;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: white;
+  font-size: 1rem;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8a2be2; /* Violeta al hacer foco */
+}
+
+/* Clases de validación de error para UI */
+.form-input.error {
+  border-color: #ff4444;
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+}
+
+/* Enlaces al pie del formulario */
+.auth-links {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.auth-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+  color: #8a2be2;
+}
+/* Opciones extra del Login */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+}
+
+.remember-me {
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.forgot-password {
+  color: #bbb;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  color: white;
+  text-decoration: underline;
+}
