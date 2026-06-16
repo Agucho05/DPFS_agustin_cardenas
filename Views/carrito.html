@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrito de Compras - Hard&Custom</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <!-- Barra de Navegación (Reutilizada) -->
+    <header class="navbar">
+      <div class="logo">Hard&Custom</div>
+      <input type="text" placeholder="Buscar productos..." class="search-bar" />
+      <div class="cart-icon">🛒</div>
+    </header>
+
+    <main class="cart-container">
+      <h2>Tu Carrito de Compras</h2>
+
+      <div class="cart-content">
+        <!-- Lista de Productos a la izquierda -->
+        <section class="cart-items">
+          <!-- Ítem 1 -->
+          <article class="cart-item">
+            <div class="cart-item-img">Img</div>
+            <div class="cart-item-info">
+              <h4>Redragon Ucal Pro K673 - Custom</h4>
+              <p class="price">$125.000</p>
+            </div>
+            <div class="cart-item-controls">
+              <button class="btn-qty">-</button>
+              <input type="text" value="1" class="qty-input" readonly />
+              <button class="btn-qty">+</button>
+            </div>
+            <button class="btn-delete">🗑️</button>
+          </article>
+
+          <!-- Ítem 2 -->
+          <article class="cart-item">
+            <div class="cart-item-img">Img</div>
+            <div class="cart-item-info">
+              <h4>Monitor 240Hz</h4>
+              <p class="price">$350.000</p>
+            </div>
+            <div class="cart-item-controls">
+              <button class="btn-qty">-</button>
+              <input type="text" value="1" class="qty-input" readonly />
+              <button class="btn-qty">+</button>
+            </div>
+            <button class="btn-delete">🗑️</button>
+          </article>
+        </section>
+
+        <!-- Resumen de Compra a la derecha -->
+        <aside class="cart-summary">
+          <h3>Resumen de compra</h3>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>$475.000</span>
+          </div>
+          <div class="summary-row">
+            <span>Costo de envío</span>
+            <span>Gratis</span>
+          </div>
+          <hr class="summary-divider" />
+          <div class="summary-row total">
+            <span>Total final</span>
+            <span>$475.000</span>
+          </div>
+          <button class="btn-primary full-width">Proceder al pago</button>
+          <a href="index.html" class="continue-shopping">Seguir comprando</a>
+        </aside>
+      </div>
+    </main>
+  </body>
+</html>
