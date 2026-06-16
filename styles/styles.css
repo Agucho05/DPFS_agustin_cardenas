@@ -1,0 +1,112 @@
+/* Reseteo básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Barra de Navegación */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #111;
+  border-bottom: 1px solid #333;
+}
+
+.search-bar {
+  padding: 0.5rem;
+  width: 40%;
+  background-color: #222;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 4px;
+}
+
+/* Hero Banner */
+.hero-banner {
+  text-align: center;
+  padding: 4rem 1rem;
+  background-color: #2a2a2a;
+  border-bottom: 1px dashed #555;
+}
+
+.btn-primary {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  border: 2px solid #8a2be2;
+  color: white;
+  cursor: pointer;
+}
+
+/* Sección de Productos usando CSS Grid */
+.products-section {
+  padding: 2rem;
+}
+
+.products-section h2 {
+  margin-bottom: 1.5rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas en PC */
+  gap: 1.5rem;
+}
+
+/* Tarjetas de Producto */
+.product-card {
+  background-color: #111;
+  border: 1px solid #333;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.product-image-placeholder {
+  background-color: #333;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: #777;
+}
+
+.price {
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr; /* 1 sola columna en celular */
+  }
+}
