@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalle de Producto - Hard&Custom</title>
+    <link rel="stylesheet" href="../styles/styles.css" />
+  </head>
+  <body>
+    <!-- Barra de Navegación (Reutilizada) -->
+    <header class="navbar">
+      <div class="logo">Hard&Custom</div>
+      <input type="text" placeholder="Buscar productos..." class="search-bar" />
+      <div class="cart-icon">🛒</div>
+    </header>
+
+    <!-- Contenedor Principal del Producto -->
+    <main class="product-detail-container">
+      <!-- Columna Izquierda: Imagen -->
+      <div class="product-image-large">Imagen del producto</div>
+
+      <!-- Columna Derecha: Información -->
+      <section class="product-info">
+        <h1>Redragon Ucal Pro K673 - Custom</h1>
+        <p class="price-large">$125.000</p>
+
+        <div class="specs">
+          <h3>Especificaciones:</h3>
+          <ul>
+            <li>Formato 75% compacto ideal para setup minimalista.</li>
+            <li>
+              Modificado con switches creamy pre-lubricados para un sonido
+              thocky.
+            </li>
+            <li>Conectividad Tri-mode: Wireless 2.4GHz, Bluetooth y USB-C.</li>
+            <li>Estructura Gasket Mount que absorbe el impacto al tipear.</li>
+          </ul>
+        </div>
+
+        <div class="purchase-actions">
+          <label for="quantity">Cantidad:</label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            value="1"
+            class="quantity-input"
+          />
+          <button class="btn-primary full-width">Agregar al carrito</button>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
