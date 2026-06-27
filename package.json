@@ -1,0 +1,25 @@
+{
+  "name": "dpfs_agustin_cardenas",
+  "version": "1.0.0",
+  "description": "Nuestro e-commerce se especializa en la venta de hardware de alto rendimiento y periféricos customizables. Ofrecemos desde componentes clave para la optimización de equipos (módulos de memoria RAM DDR5, unidades SSD, monitores de alta tasa de refresco) hasta teclados mecánicos para la personalizacion de equipos",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agucho05/DPFS_agustin_cardenas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Agucho05/DPFS_agustin_cardenas/issues"
+  },
+  "homepage": "https://github.com/Agucho05/DPFS_agustin_cardenas#readme",
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1"
+  }
+}

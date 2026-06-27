@@ -1,18 +1,12 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Iniciar Sesión - Hard&Custom</title>
-    <link rel="stylesheet" href="../styles/styles.css" />
+    <!-- Incluimos el Head -->
+    <%- include('../partials/head') %>
   </head>
   <body>
-    <!-- Barra de Navegación -->
-    <header class="navbar">
-      <div class="logo">Hard&Custom</div>
-      <input type="text" placeholder="Buscar productos..." class="search-bar" />
-      <div class="cart-icon">🛒</div>
-    </header>
+    <!-- Incluimos el Header -->
+    <%- include('../partials/header') %>
 
     <main class="auth-wrapper">
       <section class="auth-card">
@@ -53,9 +47,13 @@
         </form>
 
         <div class="auth-links">
-          <p>¿No tienes cuenta? <a href="register.html">Crear una cuenta</a></p>
+          <!-- Actualizado para usar rutas de Express en lugar de archivos .html -->
+          <p>¿No tienes cuenta? <a href="/registro">Crear una cuenta</a></p>
         </div>
       </section>
     </main>
+
+    <!-- Incluimos el Footer -->
+    <%- include('../partials/footer') %>
   </body>
 </html>
