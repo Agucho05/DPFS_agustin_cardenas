@@ -25,3 +25,12 @@ Dinámica de la Estrella de Mar:
 3. **Continuar haciendo:** Mantener la consistencia en el uso de extensiones `.ejs` y la correcta configuración del motor de templates en `app.js` para asegurar que el servidor renderice dinámicamente sin errores.
 4. **Hacer menos:** Realizar configuraciones de rutas manualmente sin antes validar la estructura de archivos en el explorador, evitando confusiones con los niveles de directorios y los `../`.
 5. **Dejar de hacer:** Ignorar la sintaxis propia del motor de plantillas en el editor de código; instalar extensiones de soporte (como *EJS language support*) es fundamental para detectar errores de sintaxis a tiempo.
+
+## Retrospectiva - Sprint 4
+Dinámica de la Estrella de Mar:
+
+1. **Comenzar a hacer:** Configurar la arquitectura de middlewares como `method-override` desde el inicio de la etapa de ruteo para evitar bloqueos al implementar operaciones PUT y DELETE en formularios.
+2. **Hacer más:** Separar la lógica de lectura y escritura de archivos (usando el módulo nativo `fs` de Node.js) en funciones reutilizables dentro del controlador para mantener el código más limpio.
+3. **Continuar haciendo:** Probar rigurosamente las rutas RESTful una por una mediante la consola y el navegador, asegurando que la lógica del servidor funcione a la perfección antes de preocuparse por la interfaz.
+4. **Hacer menos:** Depender de datos hardcodeados en las vistas EJS; toda la información debe fluir estrictamente de manera dinámica desde los archivos JSON, respetando el patrón MVC.
+5. **Dejar de hacer:** Asumir que los formularios HTML nativos soportan todos los verbos HTTP; tener presente que solo procesan GET y POST es clave para no perder tiempo diagnosticando errores de ruteo falsos.
