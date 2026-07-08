@@ -30,6 +30,19 @@
           <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input" />
           <button class="btn-primary full-width">Agregar al carrito</button>
         </div>
+
+        <div class="admin-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
+          <a href="/products/<%= product.id %>/edit" class="btn-secondary" style="flex: 1; text-align: center; text-decoration: none;">
+            Editar Producto
+          </a>
+          
+          <form action="/products/<%= product.id %>?_method=DELETE" method="POST" style="flex: 1;">
+            <button type="submit" class="btn-primary" style="width: 100%; background-color: #d9534f; border-color: #d9534f;">
+              Eliminar Producto
+            </button>
+          </form>
+        </div>
+
       </section>
     </main>
 

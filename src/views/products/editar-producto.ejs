@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+
+    <main class="auth-wrapper">
+      <section class="auth-card" style="max-width: 600px">
+        <h2>Editar Producto</h2>
+
+        <form action="/products/<%= product.id %>?_method=PUT" method="POST">
+          <div class="form-group">
+            <label for="name">Nombre del producto</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              class="form-input"
+              value="<%= product.name %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="price">Precio</label>
+            <input
+              type="number"
+              id="price"
+              name="price"
+              class="form-input"
+              value="<%= product.price %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="category">Categoría</label>
+            <input
+              type="text"
+              id="category"
+              name="category"
+              class="form-input"
+              value="<%= product.category %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea
+              id="description"
+              name="description"
+              class="form-input"
+              rows="4"
+              required
+            >
+<%= product.description %></textarea
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary full-width"
+            style="margin-top: 1rem"
+          >
+            Actualizar Producto
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>
