@@ -17,39 +17,30 @@
     <!-- Grilla de Productos -->
     <main class="products-section">
       <h2>Productos Destacados</h2>
+      
       <div class="product-grid">
-        <!-- Producto 1 -->
-        <article class="product-card">
-          <div class="product-image-placeholder">Imagen</div>
-          <h3>Monitor 240Hz</h3>
-          <p class="price">$350.000</p>
-          <button class="btn-secondary">Comprar</button>
-        </article>
-
-        <!-- Producto 2 -->
-        <article class="product-card">
-          <div class="product-image-placeholder">Imagen</div>
-          <h3>Monitor 165Hz</h3>
-          <p class="price">$280.000</p>
-          <button class="btn-secondary">Comprar</button>
-        </article>
-
-        <!-- Producto 3 -->
-        <article class="product-card">
-          <div class="product-image-placeholder">Imagen</div>
-          <h3>Teclado Mecánico 75%</h3>
-          <p class="price">$95.000</p>
-          <button class="btn-secondary">Comprar</button>
-        </article>
-
-        <!-- Producto 4 -->
-        <article class="product-card">
-          <div class="product-image-placeholder">Imagen</div>
-          <h3>Teclado Mecánico RGB</h3>
-          <p class="price">$110.000</p>
-          <button class="btn-secondary">Comprar</button>
-        </article>
+        <!-- Iniciamos el bucle de EJS para recorrer el JSON -->
+        <% products.forEach(function(producto) { %>
+          
+          <article class="product-card">
+            <div class="product-image-placeholder">Imagen de <%= producto.name %></div>
+            
+            <!-- Imprimimos el nombre del producto dinámicamente -->
+            <h3><%= producto.name %></h3>
+            
+            <!-- Imprimimos el precio dinámicamente -->
+            <p class="price">$<%= producto.price %></p>
+            
+            <!-- Generamos un enlace dinámico hacia el detalle de este producto específico -->
+            <a href="/products/<%= producto.id %>" style="text-decoration: none;">
+                <button class="btn-secondary" style="width: 100%;">Ver detalle</button>
+            </a>
+          </article>
+          
+        <!-- Cerramos el bucle de EJS -->
+        <% }); %>
       </div>
+
     </main>
 
     <!-- Incluimos el partial del Footer -->

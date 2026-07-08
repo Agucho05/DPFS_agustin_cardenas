@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "firstName": "Admin",
+    "lastName": "Principal",
+    "email": "admin@hardcustom.com",
+    "password": "hashedpassword123",
+    "category": "admin",
+    "image": "admin-avatar.jpg"
+  },
+  {
+    "id": 2,
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "email": "juan.perez@ejemplo.com",
+    "password": "hashedpassword456",
+    "category": "user",
+    "image": "default-avatar.jpg"
+  }
+]

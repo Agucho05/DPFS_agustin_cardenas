@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Monitor 240Hz",
+    "description": "Monitor gaming de 24 pulgadas con tasa de refresco de 240Hz y panel IPS. Ideal para juegos competitivos.",
+    "image": "monitor-240.jpg",
+    "category": "monitores",
+    "colors": ["Negro"],
+    "price": 350000
+  },
+  {
+    "id": 2,
+    "name": "Redragon Ucal Pro K673 - Custom",
+    "description": "Teclado mecánico 75% modificado con switches creamy pre-lubricados. Conectividad Tri-mode: Wireless, Bluetooth y USB-C.",
+    "image": "redragon-ucal.jpg",
+    "category": "teclados",
+    "colors": ["Blanco", "Negro", "Rosa"],
+    "price": 125000
+  },
+  {
+    "id": 3,
+    "name": "Monitor 165Hz",
+    "description": "Monitor curvo de 27 pulgadas a 165Hz, excelente relación calidad-precio para setups iniciales.",
+    "image": "monitor-165.jpg",
+    "category": "monitores",
+    "colors": ["Negro", "Gris"],
+    "price": 280000
+  },
+  {
+    "id": 4,
+    "name": "Nvidia RTX 3060",
+    "price": 300000,
+    "category": "componentes",
+    "colors": ["Negro"],
+    "description": "Tarjeta envidia",
+    "image": "default-image.jpg"
+  }
+]

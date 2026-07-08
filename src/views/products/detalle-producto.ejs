@@ -1,52 +1,38 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- Incluimos el Head -->
     <%- include('../partials/head') %>
   </head>
   <body>
-    <!-- Incluimos el Header -->
     <%- include('../partials/header') %>
 
-    <!-- Contenedor Principal del Producto -->
     <main class="product-detail-container">
-      <!-- Columna Izquierda: Imagen -->
-      <div class="product-image-large">Imagen del producto</div>
+      <div class="product-image-large">Imagen de <%= product.name %></div>
 
-      <!-- Columna Derecha: Información -->
       <section class="product-info">
-        <h1>Redragon Ucal Pro K673 - Custom</h1>
-        <p class="price-large">$125.000</p>
+        <h1><%= product.name %></h1>
+        <p class="price-large">$<%= product.price %></p>
 
         <div class="specs">
-          <h3>Especificaciones:</h3>
+          <h3>Descripción:</h3>
+          <p><%= product.description %></p>
+          
+          <h4 style="margin-top: 1rem;">Colores disponibles:</h4>
           <ul>
-            <li>Formato 75% compacto ideal para setup minimalista.</li>
-            <li>
-              Modificado con switches creamy pre-lubricados para un sonido
-              thocky.
-            </li>
-            <li>Conectividad Tri-mode: Wireless 2.4GHz, Bluetooth y USB-C.</li>
-            <li>Estructura Gasket Mount que absorbe el impacto al tipear.</li>
+            <% product.colors.forEach(function(color) { %>
+              <li><%= color %></li>
+            <% }); %>
           </ul>
         </div>
 
         <div class="purchase-actions">
           <label for="quantity">Cantidad:</label>
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            min="1"
-            value="1"
-            class="quantity-input"
-          />
+          <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input" />
           <button class="btn-primary full-width">Agregar al carrito</button>
         </div>
       </section>
     </main>
 
-    <!-- Incluimos el Footer -->
     <%- include('../partials/footer') %>
   </body>
 </html>
