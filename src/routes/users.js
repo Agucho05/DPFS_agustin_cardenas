@@ -39,7 +39,7 @@ router.post(
 // Ruta POST para procesar el login
 router.post("/login", usersController.procesarLogin);
 
-// Ruta GET de prueba  para el authMiddleware
+// Ruta GET de prueba para el authMiddleware
 router.get("/perfil", authMiddleware, (req, res) => {
   // Como el middleware solo deja pasar si hay sesión, podemos usar req.session tranquilo
   res.send(
