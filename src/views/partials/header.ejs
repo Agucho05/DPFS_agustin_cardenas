@@ -5,28 +5,28 @@
 
   <input type="text" placeholder="Buscar productos..." class="search-bar" />
 
-  <!-- Nuevos enlaces de navegación -->
   <div style="display: flex; gap: 1.5rem; align-items: center">
-    <a
-      href="/registro"
-      style="
-        color: #ccc;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: bold;
-      "
-      >Crear cuenta</a
-    >
-    <a
-      href="/login"
-      style="
-        color: #ccc;
-        text-decoration: none;
-        font-size: 0.9rem;
-        font-weight: bold;
-      "
-      >Ingresar</a
-    >
+    
+    <% if (locals.userLogged) { %>
+      <div style="display: flex; align-items: center; gap: 0.8rem;">
+        <img src="/images/users/<%= locals.userLogged.image %>" alt="Avatar" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #fff;">
+        
+        <span style="color: white; font-weight: bold; font-size: 0.9rem;">Hola, <%= locals.userLogged.firstName %></span>
+      </div>
+
+      <a href="/logout" style="color: #d9534f; text-decoration: none; font-size: 0.8rem; font-weight: bold;">Salir</a>
+
+    <% } else { %>
+      <a
+        href="/registro"
+        style="color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold;"
+      >Crear cuenta</a>
+      <a
+        href="/login"
+        style="color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold;"
+      >Ingresar</a>
+    <% } %>
+
     <div class="cart-icon">
       <a href="/carrito" style="text-decoration: none">🛒</a>
     </div>

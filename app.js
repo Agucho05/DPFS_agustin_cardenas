@@ -1,8 +1,10 @@
 const express = require("express");
+const usersRouter = require("./src/routes/users");
 const path = require("path");
 const app = express();
 const fs = require("fs");
 const methodOverride = require("method-override");
+const session = require("express-session");
 
 // Configurar EJS como motor de vistas
 app.set("view engine", "ejs");
@@ -14,6 +16,22 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 // Configuración para poder usar los métodos PUT y DELETE en los formularios
 app.use(methodOverride("_method"));
+// Configuración de la sesión
+app.use(
+  session({
+    secret: "SecretoDeMiE-commerce", // Es una llave para encriptar la sesión
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+// Middleware para pasar los datos del usuario logueado a las vistas
+app.use((req, res, next) => {
+  // Si hay un usuario en sesión, lo guardamos en res.locals para usarlo en EJS
+  if (req.session.userLogged) {
+    res.locals.userLogged = req.session.userLogged;
+  }
+  next();
+});
 app.use(express.json());
 
 // Ruta absoluta al archivo JSON
@@ -34,17 +52,7 @@ app.get("/", (req, res) => {
 });
 
 // --- RUTAS DE USUARIOS ---
-
-// Login
-app.get("/login", (req, res) => {
-  res.render("users/login"); // Busca en src/views/users/login.ejs
-});
-
-// Registro
-app.get("/registro", (req, res) => {
-  res.render("users/registro");
-});
-
+app.use("/", usersRouter);
 // --- RUTAS DE PRODUCTOS ---
 
 // 1. Listado de productos
