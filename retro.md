@@ -34,3 +34,12 @@ Dinámica de la Estrella de Mar:
 3. **Continuar haciendo:** Probar rigurosamente las rutas RESTful una por una mediante la consola y el navegador, asegurando que la lógica del servidor funcione a la perfección antes de preocuparse por la interfaz.
 4. **Hacer menos:** Depender de datos hardcodeados en las vistas EJS; toda la información debe fluir estrictamente de manera dinámica desde los archivos JSON, respetando el patrón MVC.
 5. **Dejar de hacer:** Asumir que los formularios HTML nativos soportan todos los verbos HTTP; tener presente que solo procesan GET y POST es clave para no perder tiempo diagnosticando errores de ruteo falsos.
+
+## Retrospectiva - Sprint 5
+Dinámica de la Estrella de Mar:
+
+1. **Comenzar a hacer:** Prestar máxima atención a los niveles de las rutas relativas (`../../`) al separar la lógica hacia los controladores, y verificar rigurosamente que los nombres de los archivos físicos coincidan exactamente con las importaciones `require()` para evitar que Node.js arroje errores de módulos no encontrados.
+2. **Hacer más:** Implementar `console.log()` de forma estratégica dentro de las funciones del backend para rastrear el flujo de datos (como contraseñas y correos), recordando siempre que la consola del navegador es ciega a los procesos internos del servidor.
+3. **Continuar haciendo:** Construir y analizar manualmente la lógica compleja de autenticación (como la encriptación de contraseñas y la inyección de sesiones globales en las vistas), priorizando el desarrollo del razonamiento analítico y el manejo de la documentación oficial.
+4. **Hacer menos:** Probar el flujo en el navegador sin antes confirmar el guardado absoluto de los archivos involucrados y el reinicio del servidor, evitando perder tiempo diagnosticando fallos ilusorios por correr código antiguo en la memoria de Node.
+5. **Dejar de hacer:** Asumir que una recarga silenciosa de la página es un error del HTML; interiorizar que en un patrón MVC, estas acciones suelen ser el resultado de redireccionamientos y validaciones estrictas (como fallos de *hash* o middlewares actuando) ejecutadas intencionalmente por el servidor.
