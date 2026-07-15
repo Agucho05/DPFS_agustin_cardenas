@@ -17,17 +17,23 @@ const upload = multer({ storage });
 
 // Importamos el controlador y middlewares
 const usersController = require("../controllers/usersController");
+const validateLogin = require("../middlewares/validateLoginMiddleware");
+const validateRegister = require("../middlewares/validateRegisterMiddleware");
 const guestMiddleware = require("../middlewares/guestMiddleware");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 // --- RUTAS DE LOGIN Y REGISTRO ---
 router.get("/login", guestMiddleware, usersController.login);
-router.post("/login", usersController.procesarLogin);
+
+// Modificamos el POST para incluir la validación de Express Validator (Solo una vez)
+router.post("/login", validateLogin, usersController.procesarLogin);
 
 router.get("/registro", guestMiddleware, usersController.registro);
+
 router.post(
   "/registro",
   upload.single("avatar"),
+  validateRegister, // ¡Se ejecuta después de Multer y antes del controlador!
   usersController.procesarRegistro,
 );
 

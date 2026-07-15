@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- Acá sí necesitamos los ../ porque estamos adentro de la carpeta products -->
     <%- include('../partials/head') %>
   </head>
   <body>
@@ -12,36 +11,56 @@
         <h2>Editar Producto</h2>
 
         <form action="/products/<%= productToEdit.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+          
+          <!-- CAMPO NOMBRE -->
           <div class="form-group">
             <label for="name">Nombre del producto</label>
-            <input type="text" id="name" name="name" class="form-input" value="<%= productToEdit.name %>" required />
+            <input type="text" id="name" name="name" class="form-input" value="<%= productToEdit.name %>" />
+            <% if (locals.errors && errors.name) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.name.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO PRECIO -->
           <div class="form-group">
             <label for="price">Precio</label>
-            <input type="number" id="price" name="price" class="form-input" value="<%= productToEdit.price %>" required />
+            <input type="number" id="price" name="price" class="form-input" value="<%= productToEdit.price %>" />
+            <% if (locals.errors && errors.price) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.price.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO CATEGORÍA -->
           <div class="form-group">
             <label for="category_id">Categoría</label>
-            <select id="category_id" name="category_id" class="form-input" style="background-color: #222; color: white; border: 1px solid #444;" required>
+            <select id="category_id" name="category_id" class="form-input" style="background-color: #222; color: white; border: 1px solid #444;">
               <% categories.forEach(category => { %>
-                <!-- Si el ID de la categoría coincide con el del producto, le ponemos el atributo 'selected' -->
                 <option value="<%= category.id %>" <%= productToEdit.category_id === category.id ? 'selected' : '' %>>
                   <%= category.name %>
                 </option>
               <% }); %>
             </select>
+            <% if (locals.errors && errors.category_id) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.category_id.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO DESCRIPCIÓN -->
           <div class="form-group">
             <label for="description">Descripción</label>
-            <textarea id="description" name="description" class="form-input" rows="4" required><%= productToEdit.description %></textarea>
+            <textarea id="description" name="description" class="form-input" rows="4"><%= productToEdit.description %></textarea>
+            <% if (locals.errors && errors.description) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.description.msg %></p>
+            <% } %>
           </div>
           
+          <!-- CAMPO IMAGEN -->
           <div class="form-group">
             <label for="image">Actualizar Imagen (Opcional)</label>
             <input type="file" id="image" name="image" style="color: #ccc; margin-top: 0.5rem" />
+            <% if (locals.errors && errors.image) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.image.msg %></p>
+            <% } %>
           </div>
 
           <button type="submit" class="btn-primary full-width" style="margin-top: 1rem">
@@ -52,5 +71,8 @@
     </main>
 
     <%- include('../partials/footer') %>
+    
+    <!-- Conectamos la validación Front-end -->
+    <script src="/js/productValidation.js"></script>
   </body>
 </html>

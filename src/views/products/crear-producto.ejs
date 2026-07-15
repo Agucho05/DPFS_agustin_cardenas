@@ -10,37 +10,78 @@
       <section class="auth-card" style="max-width: 600px">
         <h2>Cargar Nuevo Producto</h2>
 
-        <!-- IMPORTANTE: Agregado enctype para que Multer pueda procesar la imagen -->
         <form action="/products" method="POST" enctype="multipart/form-data">
+          
+          <!-- CAMPO NOMBRE -->
           <div class="form-group">
             <label for="name">Nombre del producto</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Ej: Mouse Logitech G Pro" required />
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              class="form-input" 
+              placeholder="Ej: Mouse Logitech G Pro" 
+              value="<%= locals.oldData ? oldData.name : '' %>" 
+            />
+            <% if (locals.errors && errors.name) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.name.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO PRECIO -->
           <div class="form-group">
             <label for="price">Precio</label>
-            <input type="number" id="price" name="price" class="form-input" required />
+            <input 
+              type="number" 
+              id="price" 
+              name="price" 
+              class="form-input" 
+              value="<%= locals.oldData ? oldData.price : '' %>" 
+            />
+            <% if (locals.errors && errors.price) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.price.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO CATEGORÍA -->
           <div class="form-group">
             <label for="category_id">Categoría</label>
-            <select id="category_id" name="category_id" class="form-input" style="background-color: #222; color: white; border: 1px solid #444;" required>
-              <option value="" disabled selected>Seleccioná una categoría</option>
-              <!-- Iteramos las categorías que vienen de la Base de Datos -->
+            <select id="category_id" name="category_id" class="form-input" style="background-color: #222; color: white; border: 1px solid #444;">
+              <option value="" disabled <%= !locals.oldData ? 'selected' : '' %>>Seleccioná una categoría</option>
               <% categories.forEach(category => { %>
-                <option value="<%= category.id %>"><%= category.name %></option>
+                <!-- Verificamos si el oldData.category_id coincide con el id de esta categoría para dejarla seleccionada -->
+                <option value="<%= category.id %>" <%= locals.oldData && oldData.category_id == category.id ? 'selected' : '' %>>
+                  <%= category.name %>
+                </option>
               <% }); %>
             </select>
+            <% if (locals.errors && errors.category_id) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.category_id.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO DESCRIPCIÓN -->
           <div class="form-group">
             <label for="description">Descripción</label>
-            <textarea id="description" name="description" class="form-input" rows="4" required></textarea>
+            <textarea 
+              id="description" 
+              name="description" 
+              class="form-input" 
+              rows="4"
+            ><%= locals.oldData ? oldData.description : '' %></textarea>
+            <% if (locals.errors && errors.description) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.description.msg %></p>
+            <% } %>
           </div>
 
+          <!-- CAMPO IMAGEN -->
           <div class="form-group">
             <label for="image">Imagen del producto</label>
             <input type="file" id="image" name="image" style="color: #ccc; margin-top: 0.5rem" />
+            <!-- Recuerda: No se puede hacer 'value' en input type="file" por seguridad del navegador -->
+            <% if (locals.errors && errors.image) { %>
+              <p style="color: #d9534f; font-size: 0.85rem; margin-top: 0.3rem; margin-bottom: 0;"><%= errors.image.msg %></p>
+            <% } %>
           </div>
 
           <button type="submit" class="btn-primary full-width" style="margin-top: 1rem">
@@ -51,5 +92,8 @@
     </main>
 
     <%- include('../partials/footer') %>
+    
+    <!-- Conectamos la validación Front-end -->
+    <script src="/js/productValidation.js"></script>
   </body>
 </html>

@@ -1,4 +1,6 @@
+const { validationResult } = require("express-validator");
 // Importamos los Operadores de Sequelize para poder hacer búsquedas parciales
+
 const { Op } = require("sequelize");
 
 // Requerimos la base de datos (nuestros modelos)
@@ -74,6 +76,19 @@ const productsController = {
   // 4. Guardar el producto nuevo en la base de datos
   store: async (req, res) => {
     try {
+      // 1. Atrapamos errores de validación
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        // Necesitamos traernos las categorías de vuelta para poder renderizar la vista
+        const categories = await db.Category.findAll();
+        return res.render("products/crear-producto", {
+          errors: errors.mapped(),
+          oldData: req.body,
+          categories, // Le pasamos las categorías de nuevo
+        });
+      }
+
       await db.Product.create({
         name: req.body.name,
         price: req.body.price,
@@ -115,6 +130,29 @@ const productsController = {
   update: async (req, res) => {
     try {
       const id = req.params.id;
+      const errors = validationResult(req);
+
+      if (!errors.isEmpty()) {
+        // Traemos las categorías de vuelta
+        const categories = await db.Category.findAll();
+
+        // ¡Truco! Armamos un objeto "falso" llamado productToEdit con los datos que el usuario
+        // intentó enviar, para que la vista de edición no se rompa y mantenga lo escrito.
+        const productToEdit = {
+          id: id,
+          name: req.body.name,
+          price: req.body.price,
+          description: req.body.description,
+          category_id: parseInt(req.body.category_id),
+        };
+
+        return res.render("products/editar-producto", {
+          errors: errors.mapped(),
+          productToEdit,
+          categories,
+        });
+      }
+
       const product = await db.Product.findByPk(id);
 
       await db.Product.update(

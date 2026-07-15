@@ -1,4 +1,6 @@
 const bcrypt = require("bcryptjs");
+// Importamos la función para leer los resultados de la validación
+const { validationResult } = require("express-validator");
 // Importamos la base de datos (Sequelize)
 const db = require("../../database/models");
 
@@ -13,6 +15,18 @@ const usersController = {
 
   procesarRegistro: async (req, res) => {
     try {
+      // 1. Atrapamos los resultados de las validaciones del middleware
+      const errors = validationResult(req);
+
+      // 2. Si el array de errores NO está vacío (hubo errores de validación)
+      if (!errors.isEmpty()) {
+        return res.render("users/registro", {
+          errors: errors.mapped(), // Convertimos el array en un objeto para leerlo fácil en EJS
+          oldData: req.body, // Le devolvemos lo que escribió para que no lo pierda
+        });
+      }
+
+      // 3. Si todo está perfecto, sigue el flujo normal:
       const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
       await db.User.create({
@@ -33,26 +47,30 @@ const usersController = {
 
   procesarLogin: async (req, res) => {
     try {
+      // 1. Atrapamos los resultados de las validaciones
+      const errors = validationResult(req);
+
+      // 2. Si hay errores (email no existe, contraseña incorrecta, etc.), volvemos a la vista
+      if (!errors.isEmpty()) {
+        return res.render("users/login", {
+          errors: errors.mapped(),
+          oldData: req.body, // Mantenemos el correo escrito por el usuario
+        });
+      }
+
+      // 3. Si no hay errores, Express Validator ya nos garantizó que los datos son correctos.
+      // Buscamos al usuario para meterlo en sesión.
       const userToLogin = await db.User.findOne({
         where: { email: req.body.email },
       });
 
-      if (userToLogin) {
-        const isPasswordOk = bcrypt.compareSync(
-          req.body.password,
-          userToLogin.password,
-        );
+      // Extraemos los datos puros y borramos el hash por seguridad
+      let usuarioEnSesion = userToLogin.dataValues;
+      delete usuarioEnSesion.password;
 
-        if (isPasswordOk) {
-          let usuarioEnSesion = userToLogin.dataValues;
-          delete usuarioEnSesion.password;
-
-          req.session.userLogged = usuarioEnSesion;
-          return res.redirect("/");
-        }
-      }
-
-      return res.redirect("/login");
+      // Guardamos en sesión y redirigimos a la Home
+      req.session.userLogged = usuarioEnSesion;
+      return res.redirect("/");
     } catch (error) {
       console.error("Error en el login:", error);
       res.send("Hubo un error al intentar iniciar sesión.");
