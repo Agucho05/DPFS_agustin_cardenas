@@ -3,28 +3,30 @@
     <a href="/" style="color: white; text-decoration: none">Hard&Custom</a>
   </div>
 
-  <input type="text" placeholder="Buscar productos..." class="search-bar" />
+  <!-- Buscador envuelto en un formulario GET -->
+  <form action="/products/search" method="GET" style="display: flex; align-items: center; width: 100%; max-width: 400px;">
+    <!-- El name="keyword" es clave para que el controlador atrape el texto -->
+    <input type="text" name="keyword" placeholder="Buscar productos..." class="search-bar" style="width: 100%;" />
+    <button type="submit" style="display: none;">Buscar</button>
+  </form>
 
   <div style="display: flex; gap: 1.5rem; align-items: center">
     
     <% if (locals.userLogged) { %>
-      <div style="display: flex; align-items: center; gap: 0.8rem;">
+      <!-- Enlace al Perfil -->
+      <a href="/perfil" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
         <img src="/images/users/<%= locals.userLogged.image %>" alt="Avatar" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #fff;">
-        
         <span style="color: white; font-weight: bold; font-size: 0.9rem;">Hola, <%= locals.userLogged.firstName %></span>
-      </div>
+      </a>
+
+      <!-- Acceso directo al formulario de creación -->
+      <a href="/products/create" style="color: #5cb85c; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Crear Producto</a>
 
       <a href="/logout" style="color: #d9534f; text-decoration: none; font-size: 0.8rem; font-weight: bold;">Salir</a>
 
     <% } else { %>
-      <a
-        href="/registro"
-        style="color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold;"
-      >Crear cuenta</a>
-      <a
-        href="/login"
-        style="color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold;"
-      >Ingresar</a>
+      <a href="/registro" style="color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Crear cuenta</a>
+      <a href="/login" style="color: #ccc; text-decoration: none; font-size: 0.9rem; font-weight: bold;">Ingresar</a>
     <% } %>
 
     <div class="cart-icon">

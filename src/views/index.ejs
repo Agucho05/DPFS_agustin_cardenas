@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <!-- Incluimos el partial del Head -->
     <%- include('partials/head') %>
   </head>
   <body>
-    <!-- Incluimos el partial del Header -->
     <%- include('partials/header') %>
 
-    <!-- Banner Principal (Este es el contenido único de la Home) -->
     <section class="hero-banner">
       <h1>Componentes de Alto Rendimiento</h1>
       <button class="btn-primary">Ver ofertas</button>
     </section>
 
-    <!-- Grilla de Productos -->
     <main class="products-section">
       <h2>Productos Destacados</h2>
       
       <div class="product-grid">
-        <!-- Iniciamos el bucle de EJS para recorrer el JSON -->
         <% products.forEach(function(producto) { %>
           
           <article class="product-card">
-            <div class="product-image-placeholder">Imagen de <%= producto.name %></div>
+            <!-- Renderizamos la imagen real -->
+            <div class="product-image-container" style="text-align: center; margin-bottom: 1rem;">
+              <img src="/images/<%= producto.image %>" alt="<%= producto.name %>" style="max-width: 100%; border-radius: 8px; height: 200px; object-fit: cover;">
+            </div>
             
-            <!-- Imprimimos el nombre del producto dinámicamente -->
             <h3><%= producto.name %></h3>
-            
-            <!-- Imprimimos el precio dinámicamente -->
             <p class="price">$<%= producto.price %></p>
             
-            <!-- Generamos un enlace dinámico hacia el detalle de este producto específico -->
             <a href="/products/<%= producto.id %>" style="text-decoration: none;">
                 <button class="btn-secondary" style="width: 100%;">Ver detalle</button>
             </a>
           </article>
           
-        <!-- Cerramos el bucle de EJS -->
         <% }); %>
       </div>
 
     </main>
 
-    <!-- Incluimos el partial del Footer -->
     <%- include('partials/footer') %>
   </body>
 </html>

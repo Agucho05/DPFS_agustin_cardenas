@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="es">
   <head>
+    <!-- Acá sí necesitamos los ../ porque estamos adentro de la carpeta products -->
     <%- include('../partials/head') %>
   </head>
   <body>
@@ -10,61 +11,40 @@
       <section class="auth-card" style="max-width: 600px">
         <h2>Editar Producto</h2>
 
-        <form action="/products/<%= product.id %>?_method=PUT" method="POST">
+        <form action="/products/<%= productToEdit.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Nombre del producto</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              class="form-input"
-              value="<%= product.name %>"
-              required
-            />
+            <input type="text" id="name" name="name" class="form-input" value="<%= productToEdit.name %>" required />
           </div>
 
           <div class="form-group">
             <label for="price">Precio</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              class="form-input"
-              value="<%= product.price %>"
-              required
-            />
+            <input type="number" id="price" name="price" class="form-input" value="<%= productToEdit.price %>" required />
           </div>
 
           <div class="form-group">
-            <label for="category">Categoría</label>
-            <input
-              type="text"
-              id="category"
-              name="category"
-              class="form-input"
-              value="<%= product.category %>"
-              required
-            />
+            <label for="category_id">Categoría</label>
+            <select id="category_id" name="category_id" class="form-input" style="background-color: #222; color: white; border: 1px solid #444;" required>
+              <% categories.forEach(category => { %>
+                <!-- Si el ID de la categoría coincide con el del producto, le ponemos el atributo 'selected' -->
+                <option value="<%= category.id %>" <%= productToEdit.category_id === category.id ? 'selected' : '' %>>
+                  <%= category.name %>
+                </option>
+              <% }); %>
+            </select>
           </div>
 
           <div class="form-group">
             <label for="description">Descripción</label>
-            <textarea
-              id="description"
-              name="description"
-              class="form-input"
-              rows="4"
-              required
-            >
-<%= product.description %></textarea
-            >
+            <textarea id="description" name="description" class="form-input" rows="4" required><%= productToEdit.description %></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="image">Actualizar Imagen (Opcional)</label>
+            <input type="file" id="image" name="image" style="color: #ccc; margin-top: 0.5rem" />
           </div>
 
-          <button
-            type="submit"
-            class="btn-primary full-width"
-            style="margin-top: 1rem"
-          >
+          <button type="submit" class="btn-primary full-width" style="margin-top: 1rem">
             Actualizar Producto
           </button>
         </form>

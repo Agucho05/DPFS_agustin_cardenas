@@ -1,86 +1,108 @@
-const fs = require("fs");
-const path = require("path");
 const bcrypt = require("bcryptjs");
-
-// Ruta absoluta al archivo JSON de usuarios
-const usersFilePath = path.join(__dirname, "../../data/users.json");
-
-// Función para leer el JSON
-const getUsers = () => {
-  const usersJSON = fs.readFileSync(usersFilePath, "utf-8");
-  return JSON.parse(usersJSON);
-};
+// Importamos la base de datos (Sequelize)
+const db = require("../../database/models");
 
 const usersController = {
-  // Muestra el formulario de login
   login: (req, res) => {
     res.render("users/login");
   },
 
-  // Muestra el formulario de registro
   registro: (req, res) => {
     res.render("users/registro");
   },
 
-  // Procesa el envío del formulario de registro
-  procesarRegistro: (req, res) => {
-    const users = getUsers();
+  procesarRegistro: async (req, res) => {
+    try {
+      const hashedPassword = bcrypt.hashSync(req.body.password, 10);
 
-    // 1. Encriptamos la contraseña con bcrypt (Nivel de seguridad 10 es el estándar)
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10);
+      await db.User.create({
+        firstName: req.body.nombre,
+        lastName: req.body.apellido,
+        email: req.body.email,
+        password: hashedPassword,
+        category: "user",
+        image: req.file ? req.file.filename : "default-avatar.jpg",
+      });
 
-    // 2. Armamos el nuevo usuario respetando la estructura de tu users.json
-    const newUser = {
-      id: users.length > 0 ? users[users.length - 1].id + 1 : 1, // ID autoincremental
-      firstName: req.body.nombre,
-      lastName: req.body.apellido,
-      email: req.body.email,
-      password: hashedPassword, // Guardamos la contraseña ya encriptada
-      category: "user", // Por defecto todos son usuarios normales
-      // Si multer subió un archivo, guardamos su nombre. Si no, una imagen por defecto.
-      image: req.file ? req.file.filename : "default-avatar.jpg",
-    };
-
-    // 3. Agregamos el usuario al array y sobreescribimos el JSON
-    users.push(newUser);
-    fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-
-    // 4. Redirigimos al usuario a la vista de login para que inicie sesión con su nueva cuenta
-    res.redirect("/login");
-  },
-  // Procesa el envío del formulario de login
-  procesarLogin: (req, res) => {
-    console.log("1. Intento de login con:", req.body.email);
-
-    const users = getUsers();
-    const userToLogin = users.find((user) => user.email === req.body.email);
-
-    console.log("2. ¿Encontró el mail en el JSON?:", userToLogin !== undefined);
-
-    if (userToLogin) {
-      const isPasswordOk = bcrypt.compareSync(
-        req.body.password,
-        userToLogin.password,
-      );
-      console.log("3. ¿La contraseña coincide?:", isPasswordOk);
-
-      if (isPasswordOk) {
-        delete userToLogin.password;
-        req.session.userLogged = userToLogin;
-        console.log("4. Sesión guardada. Redirigiendo a Home...");
-        return res.redirect("/");
-      }
+      res.redirect("/login");
+    } catch (error) {
+      console.error("Error al registrar el usuario:", error);
+      res.send("Hubo un error al registrar el usuario.");
     }
-    console.log("5. Falló algo. Redirigiendo al login de vuelta...");
-    return res.redirect("/login");
   },
-  // Procesa el cierre de sesión
-  logout: (req, res) => {
-    // Destruimos la sesión del usuario en el servidor
-    req.session.destroy();
 
-    // Redirigimos a la home como visitantes
+  procesarLogin: async (req, res) => {
+    try {
+      const userToLogin = await db.User.findOne({
+        where: { email: req.body.email },
+      });
+
+      if (userToLogin) {
+        const isPasswordOk = bcrypt.compareSync(
+          req.body.password,
+          userToLogin.password,
+        );
+
+        if (isPasswordOk) {
+          let usuarioEnSesion = userToLogin.dataValues;
+          delete usuarioEnSesion.password;
+
+          req.session.userLogged = usuarioEnSesion;
+          return res.redirect("/");
+        }
+      }
+
+      return res.redirect("/login");
+    } catch (error) {
+      console.error("Error en el login:", error);
+      res.send("Hubo un error al intentar iniciar sesión.");
+    }
+  },
+
+  logout: (req, res) => {
+    req.session.destroy();
     return res.redirect("/");
+  },
+
+  // --- NUEVOS MÉTODOS PARA EL PERFIL ---
+
+  // 1. Muestra el detalle del usuario
+  profile: (req, res) => {
+    // Le pasamos a la vista los datos de la sesión actual
+    res.render("users/perfil", { user: req.session.userLogged });
+  },
+
+  // 2. Procesa la actualización de datos
+  updateProfile: async (req, res) => {
+    try {
+      const userId = req.session.userLogged.id;
+
+      // Actualizamos la base de datos MariaDB
+      await db.User.update(
+        {
+          firstName: req.body.nombre,
+          lastName: req.body.apellido,
+          // Si el usuario subió una foto nueva, la guardamos. Si no, conservamos la actual.
+          image: req.file ? req.file.filename : req.session.userLogged.image,
+        },
+        {
+          where: { id: userId },
+        },
+      );
+
+      // ¡Clave! Actualizamos también la sesión en memoria para que el Header cambie en tiempo real
+      req.session.userLogged.firstName = req.body.nombre;
+      req.session.userLogged.lastName = req.body.apellido;
+      if (req.file) {
+        req.session.userLogged.image = req.file.filename;
+      }
+
+      // Redirigimos de nuevo a la misma página para ver los cambios
+      res.redirect("/perfil");
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
+      res.send("Hubo un error al intentar actualizar tus datos.");
+    }
   },
 };
 

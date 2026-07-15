@@ -7,42 +7,86 @@
     <%- include('../partials/header') %>
 
     <main class="product-detail-container">
-      <div class="product-image-large">Imagen de <%= product.name %></div>
+      <!-- 1. Renderizamos la imagen real de la base de datos -->
+      <div class="product-image-large">
+        <img
+          src="/images/<%= product.image %>"
+          alt="Imagen de <%= product.name %>"
+          style="max-width: 100%; border-radius: 8px"
+        />
+      </div>
 
       <section class="product-info">
         <h1><%= product.name %></h1>
-        <p class="price-large">$<%= product.price %></p>
+
+        <!-- 2. Mostramos la categoría gracias a la asociación de Sequelize -->
+        <h4
+          style="
+            color: #666;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+          "
+        >
+          Categoría: <%= product.category ? product.category.name : 'General' %>
+        </h4>
+
+        <p class="price-large" style="margin-top: 1rem">
+          $<%= product.price %>
+        </p>
 
         <div class="specs">
-          <h3>Descripción:</h3>
+          <h3 style="margin-top: 1.5rem">Descripción:</h3>
           <p><%= product.description %></p>
-          
-          <h4 style="margin-top: 1rem;">Colores disponibles:</h4>
-          <ul>
-            <% product.colors.forEach(function(color) { %>
-              <li><%= color %></li>
-            <% }); %>
-          </ul>
+
+          <!-- 3. El bloque de colores fue eliminado -->
         </div>
 
-        <div class="purchase-actions">
+        <div class="purchase-actions" style="margin-top: 2rem">
           <label for="quantity">Cantidad:</label>
-          <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input" />
-          <button class="btn-primary full-width">Agregar al carrito</button>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            value="1"
+            class="quantity-input"
+          />
+          <button class="btn-primary full-width" style="margin-top: 1rem">
+            Agregar al carrito
+          </button>
         </div>
 
-        <div class="admin-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
-          <a href="/products/<%= product.id %>/edit" class="btn-secondary" style="flex: 1; text-align: center; text-decoration: none;">
+        <div
+          class="admin-actions"
+          style="margin-top: 2rem; display: flex; gap: 1rem"
+        >
+          <a
+            href="/products/<%= product.id %>/edit"
+            class="btn-secondary"
+            style="flex: 1; text-align: center; text-decoration: none"
+          >
             Editar Producto
           </a>
-          
-          <form action="/products/<%= product.id %>?_method=DELETE" method="POST" style="flex: 1;">
-            <button type="submit" class="btn-primary" style="width: 100%; background-color: #d9534f; border-color: #d9534f;">
+
+          <form
+            action="/products/<%= product.id %>?_method=DELETE"
+            method="POST"
+            style="flex: 1"
+          >
+            <button
+              type="submit"
+              class="btn-primary"
+              style="
+                width: 100%;
+                background-color: #d9534f;
+                border-color: #d9534f;
+              "
+            >
               Eliminar Producto
             </button>
           </form>
         </div>
-
       </section>
     </main>
 

@@ -10,86 +10,40 @@
       <section class="auth-card" style="max-width: 600px">
         <h2>Cargar Nuevo Producto</h2>
 
-        <form action="/products" method="POST">
+        <!-- IMPORTANTE: Agregado enctype para que Multer pueda procesar la imagen -->
+        <form action="/products" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Nombre del producto</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              class="form-input"
-              placeholder="Ej: Mouse Logitech G Pro"
-              required
-            />
+            <input type="text" id="name" name="name" class="form-input" placeholder="Ej: Mouse Logitech G Pro" required />
           </div>
 
           <div class="form-group">
             <label for="price">Precio</label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              class="form-input"
-              required
-            />
+            <input type="number" id="price" name="price" class="form-input" required />
           </div>
 
           <div class="form-group">
-            <label for="category">Categoría</label>
-            <select
-              id="category"
-              name="category"
-              class="form-input"
-              style="
-                background-color: #222;
-                color: white;
-                border: 1px solid #444;
-              "
-            >
-              <option value="monitores">Monitores</option>
-              <option value="teclados">Teclados</option>
-              <option value="ratones">Ratones</option>
-              <option value="componentes">Componentes de PC</option>
+            <label for="category_id">Categoría</label>
+            <select id="category_id" name="category_id" class="form-input" style="background-color: #222; color: white; border: 1px solid #444;" required>
+              <option value="" disabled selected>Seleccioná una categoría</option>
+              <!-- Iteramos las categorías que vienen de la Base de Datos -->
+              <% categories.forEach(category => { %>
+                <option value="<%= category.id %>"><%= category.name %></option>
+              <% }); %>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="colors">Colores disponibles</label>
-            <input
-              type="text"
-              id="colors"
-              name="colors"
-              class="form-input"
-              placeholder="Ej: Negro, Blanco, Pink"
-            />
-          </div>
-
-          <div class="form-group">
             <label for="description">Descripción</label>
-            <textarea
-              id="description"
-              name="description"
-              class="form-input"
-              rows="4"
-              required
-            ></textarea>
+            <textarea id="description" name="description" class="form-input" rows="4" required></textarea>
           </div>
 
           <div class="form-group">
             <label for="image">Imagen del producto</label>
-            <input
-              type="file"
-              id="image"
-              name="image"
-              style="color: #ccc; margin-top: 0.5rem"
-            />
+            <input type="file" id="image" name="image" style="color: #ccc; margin-top: 0.5rem" />
           </div>
 
-          <button
-            type="submit"
-            class="btn-primary full-width"
-            style="margin-top: 1rem"
-          >
+          <button type="submit" class="btn-primary full-width" style="margin-top: 1rem">
             Guardar Producto
           </button>
         </form>

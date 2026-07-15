@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+  <body>
+    <%- include('../partials/header') %>
+
+    <main class="auth-wrapper">
+      <section class="auth-card" style="max-width: 600px; text-align: center">
+        <h2>Mi Perfil</h2>
+
+        <!-- Foto de perfil actual -->
+        <div style="margin: 1.5rem 0">
+          <img
+            src="/images/users/<%= user.image %>"
+            alt="Avatar de <%= user.firstName %>"
+            style="
+              width: 150px;
+              height: 150px;
+              border-radius: 50%;
+              object-fit: cover;
+              border: 3px solid #5cb85c;
+            "
+          />
+        </div>
+
+        <!-- El email no se edita, solo se muestra -->
+        <p style="color: #ccc; margin-bottom: 2rem; font-size: 1.1rem">
+          ✉️ <%= user.email %>
+        </p>
+
+        <!-- Formulario de Edición (viaja por PUT) -->
+        <form
+          action="/perfil?_method=PUT"
+          method="POST"
+          enctype="multipart/form-data"
+          style="text-align: left"
+        >
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              class="form-input"
+              value="<%= user.firstName %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input
+              type="text"
+              id="apellido"
+              name="apellido"
+              class="form-input"
+              value="<%= user.lastName %>"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="avatar">Actualizar foto de perfil (Opcional)</label>
+            <input
+              type="file"
+              id="avatar"
+              name="avatar"
+              style="color: #ccc; margin-top: 0.5rem"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="btn-primary full-width"
+            style="margin-top: 1rem"
+          >
+            Guardar Cambios
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>
