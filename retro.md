@@ -43,3 +43,12 @@ Dinámica de la Estrella de Mar:
 3. **Continuar haciendo:** Construir y analizar manualmente la lógica compleja de autenticación (como la encriptación de contraseñas y la inyección de sesiones globales en las vistas), priorizando el desarrollo del razonamiento analítico y el manejo de la documentación oficial.
 4. **Hacer menos:** Probar el flujo en el navegador sin antes confirmar el guardado absoluto de los archivos involucrados y el reinicio del servidor, evitando perder tiempo diagnosticando fallos ilusorios por correr código antiguo en la memoria de Node.
 5. **Dejar de hacer:** Asumir que una recarga silenciosa de la página es un error del HTML; interiorizar que en un patrón MVC, estas acciones suelen ser el resultado de redireccionamientos y validaciones estrictas (como fallos de *hash* o middlewares actuando) ejecutadas intencionalmente por el servidor.
+
+## Retrospectiva - Sprint 6
+Dinámica de la Estrella de Mar:
+
+1. **Comenzar a hacer:** Establecer un estándar claro para manejar las consultas asincrónicas con Sequelize, interiorizando que la persistencia y actualización de los datos ahora ocurre de forma independiente en el motor de MariaDB y no reescribiendo archivos estáticos.
+2. **Hacer más:** Verificar sistemáticamente la ruta activa en la terminal antes de ejecutar comandos críticos como `node app.js`, garantizando estar ubicados en la raíz del proyecto para evitar falsos errores de módulos no encontrados.
+3. **Continuar haciendo:** Analizar en detalle las trazas de error (stack traces) arrojadas por la consola frente a fallos en la renderización, utilizando esos datos para comprender el "por qué" técnico antes de aplicar cualquier refactorización en la estructura MVC.
+4. **Hacer menos:** Automatizar mecánicamente el uso de saltos de directorio (`../`); prestar especial atención a la profundidad de cada archivo al utilizar inclusiones dinámicas en EJS, ya que las vistas en la raíz operan bajo reglas de ruteo distintas a las de las subcarpetas.
+5. **Dejar de hacer:** Buscar confirmación visual de los nuevos registros o modificaciones en el código fuente o en los scripts semilla (como `data.sql`); hacer la transición definitiva hacia el uso de clientes de bases de datos o terminales SQL para auditar las operaciones CRUD.
