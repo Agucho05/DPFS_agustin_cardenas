@@ -1,5 +1,4 @@
 # Retrospectiva - Sprint 1
-
 Dinámica de la Estrella de Mar:
 
 1. **Comenzar a hacer:** Establecer bloques de tiempo (timeboxing) más estrictos para no sobre-analizar los wireframes.
@@ -52,3 +51,12 @@ Dinámica de la Estrella de Mar:
 3. **Continuar haciendo:** Analizar en detalle las trazas de error (stack traces) arrojadas por la consola frente a fallos en la renderización, utilizando esos datos para comprender el "por qué" técnico antes de aplicar cualquier refactorización en la estructura MVC.
 4. **Hacer menos:** Automatizar mecánicamente el uso de saltos de directorio (`../`); prestar especial atención a la profundidad de cada archivo al utilizar inclusiones dinámicas en EJS, ya que las vistas en la raíz operan bajo reglas de ruteo distintas a las de las subcarpetas.
 5. **Dejar de hacer:** Buscar confirmación visual de los nuevos registros o modificaciones en el código fuente o en los scripts semilla (como `data.sql`); hacer la transición definitiva hacia el uso de clientes de bases de datos o terminales SQL para auditar las operaciones CRUD.
+
+## Retrospectiva - Sprint 7
+Dinámica de la Estrella de Mar:
+
+1. **Comenzar a hacer:** Separar las rutas y controladores de las APIs en carpetas independientes (ej: `src/routes/api/`) para no mezclar el código de las vistas EJS con el código JSON.
+2. **Hacer más:** Utilizar la consola de las herramientas de desarrollador del navegador y la terminal del servidor en paralelo para diagnosticar errores rápidamente entre el Front-end y el Back-end.
+3. **Continuar haciendo:** Implementar validaciones en ambas capas (Front-end y Back-end) para garantizar la seguridad absoluta y la integridad de los datos en la base.
+4. **Hacer menos:** Preocuparse por errores visuales temporales antes de tener la lógica de validación del servidor completamente robusta y funcional.
+5. **Dejar de hacer:** Usar selectores genéricos de JavaScript (como `document.querySelector("form")`) cuando hay múltiples formularios en una misma página, priorizando selectores específicos de clases o IDs.
